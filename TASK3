@@ -1,0 +1,50 @@
+import nltk
+from nltk.corpus import movie_reviews
+import random
+import nltk.classify.util
+from nltk.classify import NaiveBayesClassifier
+from nltk.classify.util import accuracy as nltk_accuracy
+
+# Download NLTK data files
+nltk.download('movie_reviews')
+nltk.download('punkt')
+
+# Extract features from text
+def extract_features(words):
+    return {word: True for word in words}
+
+# Load movie reviews dataset
+movie_reviews_data = [(list(movie_reviews.words(fileid)), category)
+                      for category in movie_reviews.categories()
+                      for fileid in movie_reviews.fileids(category)]
+
+# Shuffle the data
+random.shuffle(movie_reviews_data)
+
+# Split the data into training and test datasets
+train_data = movie_reviews_data[:1500]
+test_data = movie_reviews_data[1500:]
+
+# Extract features from the training and test data
+train_features = [(extract_features(review), category) for (review, category) in train_data]
+test_features = [(extract_features(review), category) for (review, category) in test_data]
+
+# Train a Naive Bayes classifier
+classifier = NaiveBayesClassifier.train(train_features)
+
+# Evaluate the classifier
+print(f"Accuracy: {nltk_accuracy(classifier, test_features) * 100:.2f}%")
+
+# Show the most informative features
+classifier.show_most_informative_features(10)
+
+# Classify new sentences
+new_sentences = [
+    "This movie was amazing, with fantastic acting and a great storyline!",
+    "I hated this film. It was so boring and the plot made no sense."
+]
+
+for sentence in new_sentences:
+    words = nltk.word_tokenize(sentence)
+    features = extract_features(words)
+    print(f"Sentence: '{sentence}' => Sentiment: {classifier.classify(features)}")
