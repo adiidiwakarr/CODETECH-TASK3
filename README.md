@@ -29,19 +29,19 @@
 
 
 
-**Data Preparation:**The movie_reviews corpus from NLTK is used, which contains labeled movie reviews.  Reviews are shuffled and split into training and test datasets.
+**Data Preparation:**      The movie_reviews corpus from NLTK is used, which contains labeled movie reviews.  Reviews are shuffled and split into training and test datasets.
 
 
 
 
-**Feature Extraction:**The extract_features function creates a dictionary of words from the review with True as their value, representing the presence of each word.
+**Feature Extraction:**     The extract_features function creates a dictionary of words from the review with True as their value, representing the presence of each word.
 
 
 
 
 
 
-**Training the Classifier:**A Naive Bayes classifier is trained using the training dataset. The accuracy of the classifier is evaluated using the test dataset.
+**Training the Classifier:**  A Naive Bayes classifier is trained using the training dataset. The accuracy of the classifier is evaluated using the test dataset.
 
 
 
